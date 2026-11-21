@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TTN Pro - TikTok Login</title>
+  <style>
+    body {
+      background: #101827;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    main { max-width: 480px; padding: 24px; }
+    h1 { color: #38bdf8; }
+    p { line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>TTN Pro</h1>
+    <h2>TikTok Authentication</h2>
+    <p id="status">Checking login response...</p>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const status = document.getElementById("status");
+
+    if (params.has("error")) {
+      status.textContent =
+        "TikTok login was cancelled or failed.";
+    } else if (params.has("code") && params.has("state")) {
+      // OAuth code and state must be validated and
+      // handled by the trusted TTN Pro backend.
+      // Do not store or display the code here.
+      status.textContent =
+        "TikTok authorization received. " +
+        "Secure connection to TTN Pro is not configured yet.";
+    } else {
+      status.textContent =
+        "TTN Pro callback page is ready.";
+    }
+
+    // Remove sensitive query parameters from the address bar.
+    history.replaceState(null, "", location.pathname);
+  </script>
+</body>
+</html>
